@@ -1,0 +1,18 @@
+{
+  "name": "ans-token-snapshot",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "",
+  "main": "./src/app.js",
+  "scripts": {
+    "start": "node ./src/app.js"
+  },
+  "author": "charmful0x",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.3.6",
+    "dotenv": "^16.0.3",
+    "ethers": "^5.7.0",
+    "everpay": "^0.6.0"
+  }
+}
