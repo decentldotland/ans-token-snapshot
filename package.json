@@ -1,8 +1,8 @@
 {
   "name": "ans-token-snapshot",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "type": "module",
-  "description": "",
+  "description": "$ANS token airdrop distribution script",
   "main": "./src/app.js",
   "scripts": {
     "start": "node ./src/app.js"
