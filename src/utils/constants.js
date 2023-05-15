@@ -1,4 +1,5 @@
 export const ANS_CONTRACT_ADDRESS = `VGWeJLDLJ9ify3ezl9tW-9fhB0G-GIUd60FE-5Q-_VI`;
+export const ANS_TOKEN_EP_TAG = `ethereum-ans-0x937efa4a5ff9d65785691b70a1136aaf8ada7e62`;
 export const ANS_MINTING_COST = {
   "l2": 449,
   "l3": 194,
