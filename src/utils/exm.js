@@ -10,7 +10,6 @@ async function getAnsState() {
     const openOrders = req.marketplace.filter(
       (order) => order.status === "open"
     );
-    // console.log(openOrders);
 
     for (const order of openOrders) {
       const ownerIndex = req.balances.findIndex(
@@ -53,13 +52,11 @@ export async function getRewards() {
 
       res.push(user);
     }
-    console.log(
-      JSON.stringify(
-        res
-          .sort((a, b) => b.ans_balance - a.ans_balance)
-          .filter((user) => user.ans_balance > 0)
-      )
-    );
+
+    const distribution = res
+      .sort((a, b) => b.ans_balance - a.ans_balance)
+      .filter((user) => user.ans_balance > 0);
+    console.log(JSON.stringify(distribution));
     console.log(
       `total ANS distribution: ${res
         .map((user) => user.ans_balance)
@@ -72,6 +69,8 @@ export async function getRewards() {
           .filter((user) => user.ans_balance > 0).length
       }`
     );
+
+    return distribution;
   } catch (error) {
     console.log(error);
   }
