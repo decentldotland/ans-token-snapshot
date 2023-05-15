@@ -1,28 +1,37 @@
 import { ethers } from "ethers";
 import dotenv from "dotenv";
 import Everpay from "everpay";
+import { ANS_TOKEN_EP_TAG } from "./constants.js";
+import { getRewards } from "./exm.js";
 dotenv.config();
 
-export async function transferEp() {
+export async function distributeRewards() {
   try {
     const provider = new ethers.providers.JsonRpcProvider(
       "https://eth.llamarpc.com"
     );
     const signer = new ethers.Wallet(process.env.ANS_WALLET_PK, provider);
-    // test only
     const everpay = new Everpay.default({
-      account: "0x5a3c46622F0c0A0301Dc436BaFf9AD85D4E896cb",
+      account: "0x14825447060fC05826226d8695f690fdC795960D",
       chainType: "ethereum",
       ethConnectedSigner: signer,
     });
-    const tx = await everpay.transfer({
-      tag: "ethereum-ans-0x937efa4a5ff9d65785691b70a1136aaf8ada7e62",
-      amount: "0.00001",
-      to: "vZY2XY1RD9HIfWi8ift-1_DnHLDadZMWrufSh-_rKF0",
-      data: { test: "test snapshot" },
-    });
+    const eligibleUsers = await getRewards();
 
-    console.log(tx);
+    for (const user of eligibleUsers) {
+      const tx = await everpay.transfer({
+        tag: ANS_TOKEN_EP_TAG,
+        amount: user.ans_balance.toFixed(6),
+        to: user.address,
+        data: {
+          ans_airdrop_user: user.address,
+          ans_amount: user.ans_balance.toFixed(6),
+        },
+      });
+
+      console.log(tx);
+      console.log(`\ndistributed rewards for ${user.address}\n\n\n`);
+    }
   } catch (error) {
     console.log(error);
   }
